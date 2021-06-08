@@ -260,6 +260,11 @@ def simplify_graph(G, strict=True, remove_rings=True):
                     # containing the one value
                     edge_attributes[key] = [edge[key]]
 
+        # add average speed and total travel time if speed data is present
+        if "speed_kph" in edge_attributes:
+            edge_attributes["travel_time_sum"] = sum(edge_attributes["travel_time"])
+            edge_attributes["speed_kph_avg"] = sum(edge_attributes["length"])/edge_attributes["travel_time_sum"]*3.6
+                    
         for key in edge_attributes:
             # don't touch the length attribute, we'll sum it at the end
             if len(set(edge_attributes[key])) == 1 and key != "length":
