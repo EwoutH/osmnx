@@ -261,20 +261,23 @@ def simplify_graph(G, strict=True, remove_rings=True):
                     edge_attributes[key] = [edge[key]]
 
         for key in edge_attributes:
-            # don't touch the length attribute, we'll sum it at the end
-            if len(set(edge_attributes[key])) == 1 and key != "length":
-                # if there's only 1 unique value in this attribute list,
-                # consolidate it to the single value (the zero-th)
+            # define attributes that need to be added up on simplification
+            summed_attributes = {"length", "travel_time"}
+            # if there's only 1 unique value in this attribute list,
+            # consolidate it to the single value (the zero-th):
+            if len(set(edge_attributes[key])) == 1:
                 edge_attributes[key] = edge_attributes[key][0]
-            elif key != "length":
-                # otherwise, if there are multiple values, keep one of each value
+            # if there are more values and it needs to be added up, sum them
+            elif key in summed_attributes:
+                edge_attributes[key] = sum(edge_attributes[key])
+            # otherwise, if there are multiple values, keep one of each value
+            else
                 edge_attributes[key] = list(set(edge_attributes[key]))
 
         # construct the geometry and sum the lengths of the segments
         edge_attributes["geometry"] = LineString(
             [Point((G.nodes[node]["x"], G.nodes[node]["y"])) for node in path]
         )
-        edge_attributes["length"] = sum(edge_attributes["length"])
 
         # add the nodes and edges to their lists for processing at the end
         all_nodes_to_remove.extend(path[1:-1])
