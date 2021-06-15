@@ -1,5 +1,4 @@
-"""Simplify, correct, and consolidate network topology.""" #test Ci
-
+"""Simplify, correct, and consolidate network topology."""
 import logging as lg
 
 import geopandas as gpd
