@@ -25,7 +25,7 @@ classifiers = [
 ]
 dependencies = [
   "geopandas>=1.0",
-  "networkx>=2.5",
+  "networkx>=2.8.8",
   "numpy>=1.22",
   "pandas>=1.4",
   "requests>=2.27",
