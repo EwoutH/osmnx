@@ -4,6 +4,7 @@ on:
   schedule:
     - cron: "0 4 * * 1" # every monday at 04:00 UTC
   workflow_dispatch:
+  push:
 
 jobs:
   build:
